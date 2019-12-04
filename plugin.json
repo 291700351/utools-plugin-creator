@@ -1,0 +1,19 @@
+{
+  "pluginName": "uTool插件项目快速生成",
+  "description": "开发者使用该插件，快速生成uTool插件项目模板",
+  "author": "Ice Lee",
+  "version": "1.0.0",
+  "logo": "logo.png",
+  "homepage": "https://github.com/291700351",
+  "main": "pages/index.html",
+  "preload":"preload.js",
+  "features": [
+    {
+      "code": "creator",
+      "explain": "",
+      "cmds": [
+        "creator"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "pluginName": "{{ name }}",
+  "description": "{{desc}}",
+  "author": "{{ author }}",
+  "version": "{{ version }}",
+  "homepage": "{{page}}",
+  "main": "pages/index.html",
+  "preload": "preload.js",
+  "features": [
+    {
+      "code": "creator",
+      "explain": "",
+      "cmds": [
+        "creator"
+      ]
+    }
+  ]
+}
