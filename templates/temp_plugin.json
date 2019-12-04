@@ -1,17 +1,17 @@
 {
   "pluginName": "{{ name }}",
   "description": "{{desc}}",
-  "author": "{{ author }}",
+  "author": "{{author}}",
   "version": "{{ version }}",
   "homepage": "{{page}}",
   "main": "pages/index.html",
   "preload": "preload.js",
   "features": [
     {
-      "code": "creator",
-      "explain": "",
+      "code": "hello-word",
+      "explain": "This is a hello world project for uTools",
       "cmds": [
-        "creator"
+        "hello-word"
       ]
     }
   ]

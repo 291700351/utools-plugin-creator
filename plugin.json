@@ -6,11 +6,11 @@
   "logo": "logo.png",
   "homepage": "https://github.com/291700351",
   "main": "pages/index.html",
-  "preload":"preload.js",
+  "preload": "preload.js",
   "features": [
     {
       "code": "creator",
-      "explain": "",
+      "explain": "创建uTools插件项目模板",
       "cmds": [
         "creator"
       ]

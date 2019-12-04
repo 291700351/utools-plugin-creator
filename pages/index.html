@@ -1,75 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>uTool插件模板快速生成</title>
-  <link rel="stylesheet" href="../access/layui/css/layui.css" media="all">
+    <meta charset="UTF-8">
+    <title>uTool插件模板快速生成</title>
+    <link rel="stylesheet" href="../access/layui/css/layui.css" media="all">
 </head>
 <body class="layui-layout-body">
 
 <div class="layui-layout layui-body">
-  <form class="layui-form" action="">
-    <div class="layui-form-item">
-      <label class="layui-form-label">插件名称</label>
-      <div class="layui-input-inline">
-        <label>
-          <input type="text" name="pluginName" required
-                 lay-verify="title"
-                 autocomplete="off" placeholder="请输入插件名称" class="layui-input">
-        </label>
-      </div>
-    </div>
+    <form class="layui-form" id="form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">插件名称</label>
+            <div class="layui-input-inline">
+                <label>
+                    <input type="text" name="pluginName" required
+                           lay-verify="title|required"
+                           autocomplete="off" placeholder="请输入插件名称" class="layui-input">
+                </label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-inline">
+                <label>
+                    <textarea name="desc" class="layui-textarea"
+                              placeholder="请输入插件描述内容"></textarea>
+                </label>
+            </div>
+        </div>
 
-    <div class="layui-form-item">
-      <label class="layui-form-label">版本号</label>
-      <div class="layui-input-inline">
-        <label>
-          <input type="text" name="pluginVersion" required
-                 lay-verify="title"
-                 autocomplete="off" placeholder="请输入版本号" class="layui-input">
-        </label>
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">作者</label>
-      <div class="layui-input-inline">
-        <label>
-          <input type="text" name="pluginAuthor"
-                 lay-verify="title"
-                 autocomplete="off" placeholder="请输入作者名" class="layui-input">
-        </label>
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">网站主页</label>
-      <div class="layui-input-inline">
-        <label>
-          <input type="text" name="pluginPage"
-                 lay-verify="title"
-                 autocomplete="off" placeholder="请输入网站主页" class="layui-input">
-        </label>
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <div class="layui-input-block">
-        <button class="layui-btn" lay-submit lay-filter="create">创建</button>
-        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-      </div>
-    </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">版本号</label>
+            <div class="layui-input-inline">
+                <label>
+                    <input type="text" name="pluginVersion" required
+                           lay-verify="version|required"
+                           autocomplete="off" placeholder="请输入版本号" class="layui-input">
+                </label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">作者</label>
+            <div class="layui-input-inline">
+                <label>
+                    <input type="text" name="pluginAuthor"
+                           lay-verify="title"
+                           autocomplete="off" placeholder="请输入作者名" class="layui-input">
+                </label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">网站主页</label>
+            <div class="layui-input-inline">
+                <label>
+                    <input type="text" name="pluginPage"
+                           lay-verify="title"
+                           autocomplete="off" placeholder="请输入网站主页" class="layui-input">
+                </label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="create">创建</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
 
-  </form>
+    </form>
 </div>
 
 <script src="../access/layui/layui.js" charset="utf-8"></script>
 <script>
+
+
     //一般直接写在一个js文件中
-    layui.use("form", function () {
+    layui.use(["form", "upload"], function () {
         const form = layui.form;
         //监听提交
         form.on('submit(create)', function (data) {
-            window.create(data.field.pluginName, data.field.pluginVersion,
-                data.field.pluginAuthor, data.field.pluginPage);
+            const pluginTemplate = {
+                name: data.field.pluginName,
+                desc: data.field.desc,
+                author: data.field.pluginAuthor,
+                version: data.field.pluginVersion,
+                homePage: data.field.pluginPage
+            };
+
+            window.create(pluginTemplate, window.listener, function () {
+                document.getElementById("form").reset();
+                layui.form.render();
+
+            });
             return false;
+        });
+        form.verify({
+            version: function (value, item) { //value：表单的值、item：表单的DOM对象
+                if (!new RegExp("^([1-9]\\d|[1-9])(\\.([1-9]\\d|\\d)){2}$").test(value)) {
+                    return '请输入正确的版本号(示例:1.0.0)';
+                }
+            }
         });
     });
 </script>
